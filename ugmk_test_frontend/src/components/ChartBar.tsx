@@ -1,4 +1,4 @@
-import { useState, FC, useRef, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { BarItemIdentifier, BarChart } from "@mui/x-charts";
@@ -11,7 +11,7 @@ interface ChartBarProps {
   products: Product[];
 }
 
-const ChartBar: FC<ChartBarProps> = ({ products }) => {
+const ChartBar = ({ products }: ChartBarProps) => {
   const navigate = useNavigate();
 
   if (!localStorage.getItem("filter")) localStorage.setItem("filter", "all");

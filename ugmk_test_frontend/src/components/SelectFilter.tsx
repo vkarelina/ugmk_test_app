@@ -1,4 +1,4 @@
-import { FC, memo } from "react";
+import { memo } from "react";
 
 import {
   FormControl,
@@ -13,13 +13,11 @@ interface SelectFilterProps {
   handleChange: (nameFilter: string) => void;
 }
 
-const SelectFilter: FC<SelectFilterProps> = ({ filter, handleChange }) => {
+const SelectFilter = ({ filter, handleChange }: SelectFilterProps) => {
   const handleChangeSelect = (event: SelectChangeEvent) => {
     handleChange(event.target.value);
     localStorage.setItem("filter", event.target.value);
   };
-
-  console.log("render")
 
   return (
     <>

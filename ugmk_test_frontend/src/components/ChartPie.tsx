@@ -1,4 +1,4 @@
-import { FC, useRef } from "react";
+import { useRef } from "react";
 import { useParams } from "react-router-dom";
 
 import { PieChart } from "@mui/x-charts";
@@ -10,7 +10,7 @@ interface ChartPieProps {
   products: Product[];
 }
 
-const ChartPie: FC<ChartPieProps> = ({ products }) => {
+const ChartPie = ({ products }: ChartPieProps) => {
   const data = useRef<Product[] | null>(products);
   const params = useParams();
 
