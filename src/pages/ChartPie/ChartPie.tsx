@@ -11,31 +11,28 @@ interface ChartPieProps {
   products: Product[];
 }
 
+const months = [
+  "Январь",
+  "Февраль",
+  "Март",
+  "Апрель",
+  "Май",
+  "Июнь",
+  "Июль",
+  "Август",
+  "Сентябрь",
+  "Октябрь",
+  "Ноябрь",
+  "Декабрь",
+]
+
+const factories = ["A", "Б"];
+
 const ChartPie = ({ products }: ChartPieProps) => {
   const data = useRef<Product[] | null>(products);
   const { id_factory, id_mounth } = useParams();
   const idFactory = Number(id_factory);
   const idMounth = Number(id_mounth);
-
-  const factories = useMemo(() => ["A", "Б"], []);
-
-  const months = useMemo(
-    () => [
-      "Январь",
-      "Февраль",
-      "Март",
-      "Апрель",
-      "Май",
-      "Июнь",
-      "Июль",
-      "Август",
-      "Сентябрь",
-      "Октябрь",
-      "Ноябрь",
-      "Декабрь",
-    ],
-    []
-  );
 
   const getCountProduct = useMemo(() => {
     if (!data.current) return { product1: 0, product2: 0 };

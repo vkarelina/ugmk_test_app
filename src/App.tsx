@@ -3,18 +3,16 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import ChartBar from "./pages/ChartBar/ChartBar";
-import ChartPie from "./pages/ChartPie/ChartPie";
-
 import { Product } from "./types";
+import { ChartBar, ChartPie } from "./pages";
 
 const App = () => {
   const [data, setData] = useState<Product[] | null>(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/products.json")
+    fetch("http://localhost:3001/products")
       .then((res) => res.json())
-      .then((res) => setData(res.products));
+      .then((res) => setData(res));
   }, []);
 
   if (data) {

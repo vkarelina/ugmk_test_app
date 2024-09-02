@@ -1,6 +1,6 @@
 import "./chartBar.css";
 
-import { useState, useRef, useCallback, useMemo } from "react";
+import { useState, useRef, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { BarItemIdentifier, BarChart } from "@mui/x-charts";
@@ -11,6 +11,21 @@ import { Product } from "../../types";
 interface ChartBarProps {
   products: Product[];
 }
+
+const months = [
+  "Январь",
+  "Февраль",
+  "Март",
+  "Апрель",
+  "Май",
+  "Июнь",
+  "Июль",
+  "Август",
+  "Сентябрь",
+  "Октябрь",
+  "Ноябрь",
+  "Декабрь",
+];
 
 const ChartBar = ({ products }: ChartBarProps) => {
   const navigate = useNavigate();
@@ -23,24 +38,6 @@ const ChartBar = ({ products }: ChartBarProps) => {
     setFilter(nameFilter);
     localStorage.setItem("filter", nameFilter);
   }, []);
-
-  const months = useMemo(
-    () => [
-      "Январь",
-      "Февраль",
-      "Март",
-      "Апрель",
-      "Май",
-      "Июнь",
-      "Июль",
-      "Август",
-      "Сентябрь",
-      "Октябрь",
-      "Ноябрь",
-      "Декабрь",
-    ],
-    []
-  );
 
   const getArrProductsByMonths = useCallback(
     (products: Product[]) => {
