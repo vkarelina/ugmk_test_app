@@ -3,8 +3,8 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 
-import ChartBar from "./components/ChartBar";
-import ChartPie from "./components/ChartPie";
+import ChartBar from "./pages/ChartBar/ChartBar";
+import ChartPie from "./pages/ChartPie/ChartPie";
 
 import { Product } from "./types";
 

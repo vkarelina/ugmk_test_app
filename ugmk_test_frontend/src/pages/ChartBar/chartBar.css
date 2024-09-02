@@ -1,0 +1,50 @@
+.wrapperFilterBar {
+    display: flex;
+    width: 100%;
+    justify-content: end;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+.wrapperFilterBar p {
+    color: black;
+    padding-right: 16px;
+}
+
+.wrapperChartContent {
+    border: 1px solid black;
+    margin-top: 26px;
+    border-radius: 10px;
+}
+
+.wrapperMarkers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 16px;
+    gap: 10px;
+}
+
+.wrapperMarkers > div {
+    width: 20px; 
+    height: 20px;
+}
+
+.wrapperMarkers > div:first-of-type {
+    background-color: #c20d00;
+}
+
+.wrapperMarkers > div:last-of-type {
+    background-color: #0303da;
+}
+
+.wrapperMarkers > p:first-of-type {
+    color: #c20d00;
+}
+
+.wrapperMarkers > p:last-of-type {
+    color: #0303da;
+}
