@@ -6,10 +6,10 @@ import { useNavigate } from "react-router-dom";
 import { BarItemIdentifier, BarChart } from "@mui/x-charts";
 
 import SelectFilter from "../../components/SelectFilter/SelectFilter";
-import { Product } from "../../types";
+import { ProductSeria, Serialization } from "../../types";
 
 interface ChartBarProps {
-  products: Product[];
+  products: Serialization;
 }
 
 const months = [
@@ -32,7 +32,7 @@ const ChartBar = ({ products }: ChartBarProps) => {
   const [filter, setFilter] = useState(
     () => localStorage.getItem("filter") || "all"
   );
-  const data = useRef<Product[] | null>(products);
+  const data = useRef<Serialization | null>(products);
 
   const handleChange = useCallback((nameFilter: string) => {
     setFilter(nameFilter);
@@ -40,48 +40,30 @@ const ChartBar = ({ products }: ChartBarProps) => {
   }, []);
 
   const getArrProductsByMonths = useCallback(
-    (products: Product[]) => {
+    (products: ProductSeria[]) => {
       const arrayProductsByMonths = new Array(12).fill(0);
 
-      if (Array.isArray(products)) {
-        products.forEach((product) => {
-          if (product.date) {
-            const productMonthNumber = Number(product.date.split("/")[1]) - 1;
-            switch (filter) {
-              case "all":
-                arrayProductsByMonths[productMonthNumber] +=
-                  (product.product1 + product.product2 + product.product3) *
-                  0.001;
-                break;
-              case "product1":
-                arrayProductsByMonths[productMonthNumber] +=
-                  product.product1 * 0.001;
-                break;
-              case "product2":
-                arrayProductsByMonths[productMonthNumber] +=
-                  product.product2 * 0.001;
-                break;
-              case "product3":
-                arrayProductsByMonths[productMonthNumber] +=
-                  product.product3 * 0.001;
-                break;
-            }
-          }
-        });
-      }
-
+      products.forEach((product, index) => {
+        switch (filter) {
+          case "all":
+            arrayProductsByMonths[index] =
+              (product.product_1 + product.product_2 + product.product_3) *
+              0.001;
+            break;
+          case "product1":
+            arrayProductsByMonths[index] = product.product_1 * 0.001;
+            break;
+          case "product2":
+            arrayProductsByMonths[index] = product.product_2 * 0.001;
+            break;
+          case "product3":
+            arrayProductsByMonths[index] = product.product_3 * 0.001;
+            break;
+        }
+      });
       return arrayProductsByMonths;
     },
     [filter]
-  );
-
-  const filterByFactory = useCallback(
-    (products: Product[], idFactory: number) => {
-      return getArrProductsByMonths(
-        products.filter((data) => data.factory_id === idFactory)
-      );
-    },
-    [getArrProductsByMonths]
   );
 
   const onItemClick = (_: MouseEvent, barItemIdentifier: BarItemIdentifier) => {
@@ -101,8 +83,14 @@ const ChartBar = ({ products }: ChartBarProps) => {
           <BarChart
             xAxis={[{ scaleType: "band", data: months }]}
             series={[
-              { data: filterByFactory(data.current, 1), color: "#c20d00" },
-              { data: filterByFactory(data.current, 2), color: "#0303da" },
+              {
+                data: getArrProductsByMonths(data.current.factory_1),
+                color: "#c20d00",
+              },
+              {
+                data: getArrProductsByMonths(data.current.factory_2),
+                color: "#0303da",
+              },
             ]}
             width={1000}
             height={300}

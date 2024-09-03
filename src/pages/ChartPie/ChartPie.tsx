@@ -1,14 +1,13 @@
 import "./chartPie.css";
 
-import { useMemo, useRef } from "react";
+import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 
 import { PieChart } from "@mui/x-charts";
-
-import { Product } from "../../types";
+import { Serialization } from "../../types";
 
 interface ChartPieProps {
-  products: Product[];
+  products: Serialization;
 }
 
 const months = [
@@ -24,43 +23,24 @@ const months = [
   "Октябрь",
   "Ноябрь",
   "Декабрь",
-]
+];
 
 const factories = ["A", "Б"];
 
 const ChartPie = ({ products }: ChartPieProps) => {
-  const data = useRef<Product[] | null>(products);
   const { id_factory, id_mounth } = useParams();
-  const idFactory = Number(id_factory);
+  const idFactory = `factory_${id_factory}` as keyof typeof products;
   const idMounth = Number(id_mounth);
 
   const getCountProduct = useMemo(() => {
-    if (!data.current) return { product1: 0, product2: 0 };
-    return data.current.reduce(
-      (acc, current) => {
-        if (current.date) {
-          const productMountNumber = Number(current.date.split("/")[1]);
-          if (
-            productMountNumber === idMounth &&
-            current.factory_id === idFactory
-          ) {
-            return {
-              ...acc,
-              product1: acc.product1 + current.product1,
-              product2: acc.product2 + current.product2,
-            };
-          }
-        }
-        return acc;
-      },
-      { product1: 0, product2: 0 }
-    );
-  }, [data, id_factory, id_mounth]);
+    return products[idFactory][idMounth];
+  }, [id_factory, id_mounth]);
 
   return (
     <>
       <h2>
-        Статистика по продукции фабрики {factories[idFactory - 1]} за месяц {months[idMounth - 1]}
+        Статистика по продукции фабрики {factories[Number(id_factory) - 1]} за
+        месяц {months[idMounth - 1]}
       </h2>
       {getCountProduct && (
         <PieChart
@@ -69,13 +49,13 @@ const ChartPie = ({ products }: ChartPieProps) => {
               data: [
                 {
                   id: 0,
-                  value: getCountProduct.product1,
+                  value: getCountProduct.product_1,
                   label: "Продукт 1",
                   color: "#058b05",
                 },
                 {
                   id: 1,
-                  value: getCountProduct.product2,
+                  value: getCountProduct.product_2,
                   label: "Продукт 2",
                   color: "#caa012",
                 },
