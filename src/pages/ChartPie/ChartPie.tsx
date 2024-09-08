@@ -33,7 +33,7 @@ const ChartPie = ({ products }: ChartPieProps) => {
   const idMounth = Number(id_mounth);
 
   const getCountProduct = useMemo(() => {
-    return products[idFactory][idMounth];
+    return products[idFactory][idMounth - 1];
   }, [id_factory, id_mounth]);
 
   return (
