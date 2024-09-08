@@ -5,9 +5,12 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 3000",
+    "start": "vite --port 3000 --host",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "dockerize": "docker build -t ugmk_test_app .",
+    "start-container": "docker run --rm -p 3000:3000 -p 3001:3001 --name ugmk_test_app ugmk_test_app"
   },
   "dependencies": {
     "@emotion/react": "^11.13.3",

@@ -66,8 +66,9 @@ const ChartBar = ({ products }: ChartBarProps) => {
     [filter]
   );
 
-  const onItemClick = (_: MouseEvent, barItemIdentifier: BarItemIdentifier) => {
-    const indexFactory = Number(barItemIdentifier.seriesId.split("-")[3]) + 1;
+  const onItemClick = (_: React.MouseEvent<SVGElement>, barItemIdentifier: BarItemIdentifier) => {
+    const seriesIdAsString = String(barItemIdentifier.seriesId);
+    const indexFactory = Number(seriesIdAsString.split("-")[3]) + 1;
     const indexMonth = barItemIdentifier.dataIndex + 1;
     navigate(`/details/${indexFactory}/${indexMonth}`);
   };
