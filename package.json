@@ -9,7 +9,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "dockerize": "docker build -t ugmk_test_app .",
+    "dockerize-dev": "docker build -t ugmk_test_app -f Dockerfile.dev .",
+    "dockerize": "docker build -t ugmk_test_app -f Dockerfile.prod .",
+    "start-container-dev": "docker run --rm -p 3000:3000 -p 3001:3001 --name ugmk_test_app ugmk_test_app",
     "start-container": "docker run --rm -p 3000:3000 -p 3001:3001 --name ugmk_test_app ugmk_test_app"
   },
   "dependencies": {
